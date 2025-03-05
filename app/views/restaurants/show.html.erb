@@ -1,0 +1,27 @@
+<div class="container py-5">
+  <%= render @restaurant %>
+
+  <h3 class="mt-4">Reviews</h3>
+  <ul class="list-group mb-4">
+    <% @restaurant.reviews.each do |review| %>
+      <li class="list-group-item">
+        <p><strong>Rating:</strong> <%= review.rating %>/5</p>
+        <p><%= review.content %></p>
+        <%= link_to "Delete",
+          restaurant_review_path(@restaurant, review),  # Correct path here
+          data: { turbo_method: :delete, turbo_confirm: "Are you sure?" },
+          class: "btn btn-danger btn-sm"
+        %>
+      </li>
+    <% end %>
+  </ul>
+  <br>
+
+  <div class="d-flex justify-content-between">
+    <div>
+      <%= link_to "Edit this restaurant", edit_restaurant_path(@restaurant), class: "btn btn-warning btn-sm" %>
+      <%= link_to "Back to restaurants", restaurants_path, class: "btn btn-secondary btn-sm" %>
+    </div>
+    <%= button_to "Destroy this restaurant", @restaurant, method: :delete, class: "btn btn-danger btn-sm" %>
+  </div>
+</div>
